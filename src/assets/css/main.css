@@ -24,11 +24,21 @@
   --font-sans: 'gotham_roundedbold', ui-sans-serif, system-ui, sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
   --font-mono: 'calling_coderegular', 'Courier New', monospace;
+
+  --color-blue-winny: oklch(0.809 0.0755 231.37);
+  --color-blue-winny-gray: oklch(0.5239 0.1181 257.46);
+  --color-blue-winny-dark: oklch(0.3262 0.0818 268.58);
 }
 
 @layer base {
   body {
-    @apply bg-white text-gray-900 font-sans;
+    @apply bg-blue-winny text-blue-winny-dark font-sans;
+    background: radial-gradient(
+      circle,
+      var(--color-white) 0%,
+      var(--color-blue-winny) 50%,
+      var(--color-blue-winny) 100%
+    );
   }
 
   h1,
@@ -37,11 +47,11 @@
   h4,
   h5,
   h6 {
-    @apply font-bold text-gray-800;
+    @apply font-bold text-blue-winny-dark;
   }
 
   p {
-    @apply text-gray-700 leading-relaxed;
+    @apply text-blue-winny-gray leading-relaxed;
   }
 
   a {
