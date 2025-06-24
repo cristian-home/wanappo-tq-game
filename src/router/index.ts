@@ -6,24 +6,18 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'game-home',
       component: GameHomeView,
     },
     {
       path: '/game-play',
       name: 'game-play',
-      // route level code-splitting
-      // this generates a separate chunk (GamePlay.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/GamePlayView.vue'),
     },
     {
-      path: '/game-over',
-      name: 'game-over',
-      // route level code-splitting
-      // this generates a separate chunk (GameOver.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/GameOverView.vue'),
+      path: '/game-win',
+      name: 'game-win',
+      component: () => import('../views/GameWinView.vue'),
     },
     {
       path: '/:catchAll(.*)',

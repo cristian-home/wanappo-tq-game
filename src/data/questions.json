@@ -1,0 +1,93 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "question": "Completa el empaque, faltan 3 elementos.",
+      "coverImage": "/img/products/crema-no4-protect.webp",
+      "options": [
+        {
+          "id": 1,
+          "text": "Opción 1",
+          "imageUrl": "/img/options/LogoCapaCremosa.webp",
+          "isCorrect": true
+        },
+        {
+          "id": 2,
+          "text": "Opción 2",
+          "imageUrl": "/img/options/LogoCapaCremosa.webp",
+          "isCorrect": true
+        },
+        {
+          "id": 3,
+          "text": "Opción 3",
+          "imageUrl": "/img/options/LogoCapaCremosa.webp",
+          "isCorrect": false
+        },
+        {
+          "id": 4,
+          "text": "Opción 4",
+          "imageUrl": "/img/options/LogoCapaCremosa.webp",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "question": "¿Cuáles son los ingredientes principales de este producto?",
+      "coverImage": "/img/products/crema-no4-protect.webp",
+      "options": [
+        {
+          "id": 5,
+          "text": "Vitamina E",
+          "isCorrect": true
+        },
+        {
+          "id": 6,
+          "text": "Aloe Vera",
+          "isCorrect": true
+        },
+        {
+          "id": 7,
+          "text": "Parabenos",
+          "isCorrect": false
+        },
+        {
+          "id": 8,
+          "text": "Alcohol",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "question": "Selecciona los beneficios correctos del producto.",
+      "coverImage": "/img/products/crema-no4-protect.webp",
+      "options": [
+        {
+          "id": 9,
+          "text": "Hidratación profunda",
+          "imageUrl": "/img/options/LogoCapaCremosa.webp",
+          "isCorrect": true
+        },
+        {
+          "id": 10,
+          "text": "Protección solar",
+          "imageUrl": "/img/options/LogoCapaCremosa.webp",
+          "isCorrect": true
+        },
+        {
+          "id": 11,
+          "text": "Cambio de color de piel",
+          "imageUrl": "/img/options/LogoCapaCremosa.webp",
+          "isCorrect": false
+        },
+        {
+          "id": 12,
+          "text": "Efecto permanente",
+          "imageUrl": "/img/options/LogoCapaCremosa.webp",
+          "isCorrect": false
+        }
+      ]
+    }
+  ]
+}
