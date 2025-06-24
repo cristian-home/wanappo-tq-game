@@ -9,7 +9,7 @@ import { compression } from 'vite-plugin-compression2'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: 'wanappo-tq-game',
+  base: '/wanappo-tq-game/',
   plugins: [
     vue(),
     vueDevTools(),
