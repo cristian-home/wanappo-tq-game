@@ -2,8 +2,7 @@
   font-family: 'gotham_roundedbold';
   src:
     url('../fonts/gotham_rounded_bold-webfont.woff2') format('woff2'),
-    url('../fonts/gotham_rounded_bold-webfont.woff') format('woff'),
-    url('../fonts/gotham_rounded_bold-webfont.ttf') format('truetype');
+    url('../fonts/gotham_rounded_bold-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -12,8 +11,7 @@
   font-family: 'calling_coderegular';
   src:
     url('../fonts/callingcode-regular-webfont.woff2') format('woff2'),
-    url('../fonts/callingcode-regular-webfont.woff') format('woff'),
-    url('../fonts/callingcode-regular-webfont.ttf') format('truetype');
+    url('../fonts/callingcode-regular-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -31,11 +29,16 @@
 }
 
 @layer base {
+  * {
+    @apply box-border select-none;
+  }
+
   body {
-    @apply bg-blue-winny text-blue-winny-dark font-sans;
+    @apply bg-blue-winny text-blue-winny-dark font-sans m-0 p-0;
     background: radial-gradient(
-      circle,
-      var(--color-white) 0%,
+      circle at 50% 30%,
+      oklch(from var(--color-blue-winny) l c h / 0.2) 0%,
+      oklch(from var(--color-blue-winny) l c h / 0.5) 15%,
       var(--color-blue-winny) 50%,
       var(--color-blue-winny) 100%
     );
@@ -56,5 +59,49 @@
 
   a {
     @apply text-blue-600 hover:text-blue-800;
+  }
+}
+
+@utility rounded-w-box {
+  @apply max-w-full bg-white z-1 relative text-blue-winny-gray font-bold py-2 px-4 rounded-full transition-all duration-300 ease-in-out;
+
+  &::before {
+    @apply -inset-2 content-[''] absolute rounded-full -z-1 bg-center bg-contain;
+    @apply shadow-[inset_0_0_5px_2px_rgba(from_var(--color-white)_r_g_b_/_0.75)];
+    /* @apply backdrop-blur-xs; */
+  }
+}
+
+@layer components {
+  .btn {
+    @apply rounded-w-box text-center cursor-pointer;
+  }
+
+  .btn.btn-success {
+    @apply before:shadow-[inset_0_0_6px_4px_rgba(from_var(--color-green-500)_r_g_b_/_1)];
+  }
+
+  .btn.btn-danger {
+    @apply before:shadow-[inset_0_0_6px_4px_rgba(from_var(--color-red-500)_r_g_b_/_1)];
+  }
+
+  .btn.btn-large {
+    @apply text-3xl px-8 py-2;
+  }
+
+  .btn:hover {
+    @apply shadow shadow-blue-winny-dark/20;
+  }
+
+  .btn:active:not(:disabled) {
+    @apply translate-y-1 duration-75;
+  }
+
+  .btn:disabled {
+    @apply cursor-not-allowed saturate-[80%] opacity-[90%];
+  }
+
+  .btn.btn-success:disabled {
+    @apply cursor-not-allowed saturate-[100%] opacity-[100%];
   }
 }
