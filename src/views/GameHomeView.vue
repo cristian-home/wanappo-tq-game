@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import N4Logo from '@/assets/img/N4Logo.svg'
 import { useRouter } from 'vue-router'
+import { useGameStore } from '@/stores/game'
 
 const router = useRouter()
+const gameStore = useGameStore()
 
 const onClickStart = () => {
+  gameStore.restartGame()
   router.push({ name: 'game-play' })
 }
 </script>
