@@ -34,7 +34,7 @@
   }
 
   body {
-    @apply bg-blue-winny text-blue-winny-dark font-sans m-0 p-0;
+    @apply bg-blue-winny text-blue-winny-dark m-0 p-0 font-sans;
     background: radial-gradient(
       circle at 50% 30%,
       oklch(from var(--color-blue-winny) l c h / 0.2) 0%,
@@ -50,7 +50,7 @@
   h4,
   h5,
   h6 {
-    @apply font-bold text-blue-winny-dark;
+    @apply text-blue-winny-dark font-bold;
   }
 
   p {
@@ -63,10 +63,10 @@
 }
 
 @utility rounded-w-box {
-  @apply max-w-full bg-white z-1 relative text-blue-winny-gray font-bold py-2 px-4 rounded-full transition-all duration-300 ease-in-out;
+  @apply text-blue-winny-gray relative z-1 max-w-full rounded-full bg-white px-4 py-2 font-bold;
 
   &::before {
-    @apply -inset-2 content-[''] absolute rounded-full -z-1 bg-center bg-contain;
+    @apply absolute -inset-2 -z-1 rounded-full bg-contain bg-center content-[''];
     @apply shadow-[inset_0_0_5px_2px_rgba(from_var(--color-white)_r_g_b_/_0.75)];
     /* @apply backdrop-blur-xs; */
   }
@@ -74,7 +74,7 @@
 
 @layer components {
   .btn {
-    @apply rounded-w-box text-center cursor-pointer;
+    @apply rounded-w-box cursor-pointer text-center;
   }
 
   .btn.btn-success {
@@ -86,11 +86,11 @@
   }
 
   .btn.btn-large {
-    @apply text-3xl px-8 py-2;
+    @apply px-8 py-2 text-3xl;
   }
 
   .btn:hover {
-    @apply shadow shadow-blue-winny-dark/20;
+    @apply shadow-blue-winny-dark/20 shadow;
   }
 
   .btn:active:not(:disabled) {
@@ -98,10 +98,10 @@
   }
 
   .btn:disabled {
-    @apply cursor-not-allowed saturate-[80%] opacity-[90%];
+    @apply cursor-not-allowed opacity-[90%] saturate-[80%];
   }
 
   .btn.btn-success:disabled {
-    @apply cursor-not-allowed saturate-[100%] opacity-[100%];
+    @apply cursor-not-allowed opacity-[100%] saturate-[100%];
   }
 }
