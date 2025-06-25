@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import GameHeaderLabel from '@/components/game/GameHeaderLabel.vue'
 import { useGameStore } from '@/stores/game'
+import { useSoundStore } from '@/stores/sound'
 import { watch } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import { useResolveAssetUrl } from '@/composables/useResolveAssetURL'
 import { AnimatePresence, motion, useAnimate } from 'motion-v'
 
 const gameStore = useGameStore()
+const soundStore = useSoundStore()
 const router = useRouter()
 
 // Motion refs
@@ -87,12 +89,31 @@ const startExitAnimation = async () => {
 const handleNextLevel = () => {
   if (gameStore.canProceedToNextLevel) {
     if (gameStore.currentLevelIndex < gameStore.totalLevels - 1) {
+      soundStore.playLevelUpSound()
       gameStore.nextLevel()
     } else {
+      soundStore.playGameWinSound()
       gameStore.completeGame()
       router.push({ name: 'game-win' })
     }
   }
+}
+
+const handleOptionClick = (optionId: number) => {
+  if (!gameStore.currentLevel || gameStore.isLevelCompleted) return
+
+  const option = gameStore.currentLevel.options.find((opt) => opt.id === optionId)
+  if (!option) return
+
+  // Play appropriate sound based on option correctness
+  if (option.isCorrect) {
+    soundStore.playRightAnswerSound()
+  } else {
+    soundStore.playWrongAnswerSound()
+  }
+
+  // Select the option in the game store
+  gameStore.selectOption(optionId)
 }
 
 onBeforeRouteLeave(async (to, from, next) => {
@@ -208,7 +229,7 @@ watch(
               'btn-danger': !option.isCorrect && option.isSelected,
             }"
             :disabled="gameStore.isLevelCompleted"
-            @click="gameStore.selectOption(option.id)"
+            @click="handleOptionClick(option.id)"
           >
             <img
               v-if="option.imageUrl"
