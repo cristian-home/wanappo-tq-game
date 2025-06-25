@@ -2,7 +2,7 @@
 import GameHeaderLabel from '@/components/game/GameHeaderLabel.vue'
 import { useGameStore } from '@/stores/game'
 import { useSoundStore } from '@/stores/sound'
-import { watch } from 'vue'
+import { watch, ref } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import { useResolveAssetUrl } from '@/composables/useResolveAssetURL'
 import { AnimatePresence, motion, useAnimate } from 'motion-v'
@@ -10,6 +10,9 @@ import { AnimatePresence, motion, useAnimate } from 'motion-v'
 const gameStore = useGameStore()
 const soundStore = useSoundStore()
 const router = useRouter()
+
+// State for complete product display
+const showCompleteProduct = ref(false)
 
 // Motion refs
 const [headerScope, headerAnimate] = useAnimate<HTMLDivElement>()
@@ -91,12 +94,26 @@ const handleNextLevel = () => {
     if (gameStore.currentLevelIndex < gameStore.totalLevels - 1) {
       soundStore.playLevelUpSound()
       gameStore.nextLevel()
+      showCompleteProduct.value = false
     } else {
       soundStore.playGameWinSound()
       gameStore.completeGame()
       router.push({ name: 'game-win' })
     }
   }
+}
+
+const showCompleteProductAndProceed = () => {
+  // Show the complete product with sunburst effect
+  showCompleteProduct.value = true
+
+  // Hide the complete product after 3 seconds and proceed to next level after additional 500ms
+  setTimeout(() => {
+    showCompleteProduct.value = false
+    setTimeout(() => {
+      handleNextLevel()
+    }, 500)
+  }, 2500)
 }
 
 const handleOptionClick = (optionId: number) => {
@@ -146,7 +163,7 @@ watch(
 
         console.log(message)
 
-        handleNextLevel()
+        showCompleteProductAndProceed()
       }, 500)
     }
   },
@@ -194,9 +211,9 @@ watch(
       <div class="h-32 w-96 max-w-full">
         <AnimatePresence :mode="'wait'">
           <motion.img
-            v-if="gameStore.currentLevel.coverImage"
+            v-if="gameStore.currentLevel.incompleteImage"
             :key="gameStore.currentLevel.id"
-            :src="useResolveAssetUrl(gameStore.currentLevel.coverImage).value"
+            :src="useResolveAssetUrl(gameStore.currentLevel.incompleteImage).value"
             :initial="{ opacity: 0, scale: 0.8 }"
             :animate="{ opacity: 1, scale: 1 }"
             :exit="{ opacity: 0, scale: 0.8 }"
@@ -246,5 +263,65 @@ watch(
     <div v-else class="text-center">
       <p>Cargando nivel...</p>
     </div>
+
+    <!-- Complete Product Display with Sunburst Effect -->
+    <AnimatePresence>
+      <motion.div
+        v-if="showCompleteProduct && gameStore.currentLevel?.completeImage"
+        :key="'complete-' + gameStore.currentLevel.id"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+        :initial="{ opacity: 0 }"
+        :animate="{ opacity: 1 }"
+        :exit="{ opacity: 0 }"
+        :transition="{ duration: 0.5 }"
+      >
+        <!-- Sunburst Background -->
+        <!-- <div class="sunburst-bg absolute inset-0 h-32 w-32"></div> -->
+
+        <!-- Complete Product Image Container -->
+        <motion.div
+          class="relative z-10 flex items-center justify-center"
+          :initial="{ scale: 0, rotate: -180 }"
+          :animate="{ scale: 1, rotate: 0 }"
+          :exit="{ scale: 0, rotate: 180 }"
+          :transition="{ duration: 0.8, ease: 'backOut' }"
+        >
+          <!-- Glow effect background -->
+          <div
+            class="bg-gradient-radial absolute inset-0 scale-150 rounded-full from-yellow-400/30 via-orange-400/20 to-transparent blur-xl"
+          ></div>
+
+          <!-- Product image -->
+          <img
+            :src="useResolveAssetUrl(gameStore.currentLevel.completeImage).value"
+            alt="Complete Product"
+            class="relative z-10 h-80 w-80 max-w-full object-contain brightness-110 drop-shadow-2xl saturate-110 filter"
+          />
+
+          <!-- Sparkle effects -->
+          <div class="absolute inset-0 animate-ping">
+            <div
+              class="absolute top-4 left-4 h-2 w-2 animate-pulse rounded-full bg-yellow-300"
+            ></div>
+            <div
+              class="absolute top-8 right-8 h-1 w-1 animate-pulse rounded-full bg-white delay-300"
+            ></div>
+            <div
+              class="absolute bottom-6 left-12 h-1.5 w-1.5 animate-pulse rounded-full bg-yellow-200 delay-700"
+            ></div>
+            <div
+              class="absolute right-6 bottom-12 h-1 w-1 animate-pulse rounded-full bg-orange-300 delay-500"
+            ></div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   </div>
 </template>
+
+<style scoped>
+/* Radial gradient utility */
+.bg-gradient-radial {
+  background: radial-gradient(var(--tw-gradient-stops));
+}
+</style>

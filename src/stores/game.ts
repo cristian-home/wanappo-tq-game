@@ -13,7 +13,8 @@ export interface GameOption {
 export interface GameLevel {
   id: number
   question: string
-  coverImage: string | null
+  incompleteImage: string | null
+  completeImage: string | null
   options: GameOption[]
 }
 
