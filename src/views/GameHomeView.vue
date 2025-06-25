@@ -4,22 +4,24 @@ import { motion, useAnimate } from 'motion-v'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/game'
 import { useRenderStore } from '@/stores/render'
+import { useSoundStore } from '@/stores/sound'
 import { onMounted } from 'vue'
 
 const router = useRouter()
 const renderStore = useRenderStore()
 const gameStore = useGameStore()
+const soundStore = useSoundStore()
 
 // Motion components
 const N4LogoMotion = motion.create(N4Logo)
 
 // Motion refs
-const [scope, animate] = useAnimate<HTMLElement>()
+const [buttonRef, animateButton] = useAnimate<HTMLElement>()
 
 const startEnterAnimation = () => {
-  if (animate !== undefined)
-    animate(
-      scope.value,
+  if (animateButton !== undefined)
+    animateButton(
+      buttonRef.value,
       { y: [100, 0], opacity: [0, 1] },
       {
         delay: 0.6,
@@ -29,13 +31,13 @@ const startEnterAnimation = () => {
 
 const startExitAnimation = async () => {
   const promise = new Promise((resolve) => {
-    if (animate === undefined) {
+    if (animateButton === undefined) {
       resolve(true)
       return
     }
 
-    animate(
-      scope.value,
+    animateButton(
+      buttonRef.value,
       {
         opacity: [1, 0],
       },
@@ -49,6 +51,8 @@ const startExitAnimation = async () => {
 }
 
 const onClickStart = () => {
+  soundStore.playStartGameSound()
+  soundStore.startBackgroundMusic()
   gameStore.restartGame()
   router.push({ name: 'game-play' })
 }
@@ -80,6 +84,6 @@ onBeforeRouteLeave((to, from, next) => {
         class="h-48 max-w-full"
       />
     </motion.div>
-    <button class="btn btn-large opacity-0" @click="onClickStart" ref="scope">INICIO</button>
+    <button class="btn btn-large opacity-0" @click="onClickStart" ref="buttonRef">INICIO</button>
   </div>
 </template>

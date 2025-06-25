@@ -2,11 +2,13 @@
 import N4Face from '@/assets/img/N4Face.svg'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/game'
+import { useSoundStore } from '@/stores/sound'
 import { useAnimate } from 'motion-v'
 import { onMounted } from 'vue'
 
 const router = useRouter()
 const gameStore = useGameStore()
+const soundStore = useSoundStore()
 
 // motion refs
 const [faceRef, animateFace] = useAnimate<HTMLDivElement>()
@@ -91,6 +93,7 @@ const startExitAnimation = async () => {
 }
 
 onMounted(() => {
+  soundStore.playGameWinSound()
   startEnterAnimation()
 })
 

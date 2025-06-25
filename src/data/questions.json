@@ -3,7 +3,8 @@
     {
       "id": 1,
       "question": "Completa el empaque, faltan 3 elementos.",
-      "coverImage": "/img/products/crema-no4-protect.webp",
+      "incompleteImage": "/img/products/1-1.webp",
+      "completeImage": "/img/products/1-2.webp",
       "options": [
         {
           "id": 1,
@@ -15,105 +16,107 @@
           "id": 2,
           "text": "Con nistatina",
           "imageUrl": "/img/options/LogoNistatina.webp",
-          "isCorrect": true
+          "isCorrect": false
         },
         {
           "id": 3,
           "text": "Capa ligera",
           "imageUrl": "/img/options/LogoCapaLigera.webp",
-          "isCorrect": false
+          "isCorrect": true
         },
         {
           "id": 4,
           "text": "Original",
           "imageUrl": null,
-          "isCorrect": false
+          "isCorrect": true
         },
         {
           "id": 5,
           "text": "Protect",
           "imageUrl": null,
-          "isCorrect": true
+          "isCorrect": false
         },
         {
           "id": 6,
           "text": "Larga duración",
           "imageUrl": null,
-          "isCorrect": true
+          "isCorrect": false
         }
       ]
     },
     {
       "id": 2,
       "question": "Completa el empaque, faltan 3 elementos.?",
-      "coverImage": "/img/products/crema-no4-protect.webp",
+      "incompleteImage": "/img/products/2-1.webp",
+      "completeImage": "/img/products/2-2.webp",
       "options": [
         {
           "id": 7,
           "text": "Original",
           "imageUrl": null,
-          "isCorrect": true
+          "isCorrect": false
         },
         {
           "id": 8,
           "text": "Medicada",
           "imageUrl": null,
-          "isCorrect": true
+          "isCorrect": false
         },
         {
           "id": 9,
           "text": "Suave Textura",
           "imageUrl": null,
-          "isCorrect": false
+          "isCorrect": true
         },
         {
           "id": 10,
           "text": "Capa Gruesa",
           "imageUrl": "/img/options/LogoCapaGruesa.webp",
-          "isCorrect": true
+          "isCorrect": false
         },
         {
           "id": 11,
           "text": "20% oxido de zinc",
           "imageUrl": null,
-          "isCorrect": false
+          "isCorrect": true
         },
         {
           "id": 12,
           "text": "Con nistatina",
           "imageUrl": "/img/options/LogoNistatina.webp",
-          "isCorrect": false
+          "isCorrect": true
         }
       ]
     },
     {
       "id": 3,
       "question": "Completa el empaque, faltan 3 elementos.?",
-      "coverImage": "/img/products/crema-no4-protect.webp",
+      "incompleteImage": "/img/products/3-1.webp",
+      "completeImage": "/img/products/3-2.webp",
       "options": [
         {
           "id": 13,
           "text": "Suave Textura",
           "imageUrl": null,
-          "isCorrect": true
+          "isCorrect": false
         },
         {
           "id": 14,
           "text": "Capa Gruesa",
           "imageUrl": "/img/options/LogoCapaGruesa.webp",
-          "isCorrect": true
+          "isCorrect": false
         },
         {
           "id": 15,
           "text": "Capa Cremosa",
           "imageUrl": "/img/options/LogoCapaCremosa.webp",
-          "isCorrect": false
+          "isCorrect": true
         },
         {
           "id": 16,
           "text": "Con Caléndula",
           "imageUrl": null,
-          "isCorrect": false
+          "isCorrect": true
         },
         {
           "id": 17,
@@ -126,6 +129,50 @@
           "text": "Protect",
           "imageUrl": null,
           "isCorrect": false
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "question": "Completa el empaque, faltan 3 elementos.?",
+      "incompleteImage": "/img/products/4-1.webp",
+      "completeImage": "/img/products/4-2.webp",
+      "options": [
+        {
+          "id": 19,
+          "text": "Larga duración",
+          "imageUrl": null,
+          "isCorrect": true
+        },
+        {
+          "id": 20,
+          "text": "Capa Gruesa",
+          "imageUrl": "/img/options/LogoCapaGruesa.webp",
+          "isCorrect": true
+        },
+        {
+          "id": 21,
+          "text": "25% oxido de zinc",
+          "imageUrl": null,
+          "isCorrect": false
+        },
+        {
+          "id": 22,
+          "text": "Medicada",
+          "imageUrl": null,
+          "isCorrect": false
+        },
+        {
+          "id": 23,
+          "text": "Capa Cremosa",
+          "imageUrl": "/img/options/LogoCapaCremosa.webp",
+          "isCorrect": false
+        },
+        {
+          "id": 24,
+          "text": "40% oxido de zinc",
+          "imageUrl": null,
+          "isCorrect": true
         }
       ]
     }
