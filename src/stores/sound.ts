@@ -22,15 +22,15 @@ export const useSoundStore = defineStore('sound', () => {
     isPlaying: isBgPlaying,
   } = useSound(bgMusicUrl, {
     loop: true,
-    volume: 0.3,
+    volume: 0.5,
   })
 
   // Load sound effects
-  const { play: playStartGame } = useSound(startGameUrl, { volume: 0.5 })
-  const { play: playRightAnswer } = useSound(rightAnswerUrl, { volume: 0.6 })
-  const { play: playWrongAnswer } = useSound(wrongAnswerUrl, { volume: 0.6 })
-  const { play: playLevelUp } = useSound(levelUpUrl, { volume: 0.7 })
-  const { play: playGameWin } = useSound(gameWinUrl, { volume: 0.7 })
+  const { play: playStartGame } = useSound(startGameUrl, { volume: 0.7 })
+  const { play: playRightAnswer } = useSound(rightAnswerUrl, { volume: 0.7 })
+  const { play: playWrongAnswer } = useSound(wrongAnswerUrl, { volume: 0.7 })
+  const { play: playLevelUp } = useSound(levelUpUrl, { volume: 0.9 })
+  const { play: playGameWin } = useSound(gameWinUrl, { volume: 0.9 })
 
   // Actions
   const startBackgroundMusic = () => {
