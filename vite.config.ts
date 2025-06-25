@@ -6,6 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
 import svgLoader from 'vite-svg-loader'
 import { compression } from 'vite-plugin-compression2'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -19,6 +20,13 @@ export default defineConfig({
     }),
     compression({
       algorithms: ['gzip', 'brotli'],
+    }),
+    VitePWA({
+      registerType: 'autoUpdate',
+      workbox: {
+        clientsClaim: true,
+        skipWaiting: true,
+      },
     }),
   ],
   build: {
