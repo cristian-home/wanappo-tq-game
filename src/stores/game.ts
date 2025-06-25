@@ -5,7 +5,7 @@ import questionsData from '@/data/questions.json'
 export interface GameOption {
   id: number
   text?: string
-  imageUrl?: string
+  imageUrl?: string | null
   isCorrect: boolean
   isSelected: boolean
 }
@@ -13,7 +13,7 @@ export interface GameOption {
 export interface GameLevel {
   id: number
   question: string
-  coverImage: string
+  coverImage: string | null
   options: GameOption[]
 }
 
