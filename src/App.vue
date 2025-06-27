@@ -50,8 +50,11 @@ onMounted(() => {
       </AnimatePresence>
     </RouterView>
     <div class="pointer-events-none fixed bottom-0 -z-1 flex w-full flex-col items-center">
-      <img src="@/assets/img/bottom-t.webp" alt="Bottom T" class="-mb-[5%] w-10/12" />
-      <img src="@/assets/img/bottom-b.webp" alt="Bottom B" class="w-full" />
+      <img src="@/assets/img/bottom-t.webp" alt="Bottom T" class="-mb-[5%] w-10/12 opacity-50" />
+      <div class="relative w-full">
+        <img src="@/assets/img/bottom-b.webp" alt="Bottom B" class="w-full opacity-50" />
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white opacity-50"></div>
+      </div>
     </div>
   </main>
 </template>

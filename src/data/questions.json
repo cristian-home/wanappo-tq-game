@@ -46,7 +46,7 @@
     },
     {
       "id": 2,
-      "question": "Completa el empaque, faltan 3 elementos.?",
+      "question": "Completa el empaque, faltan 4 elementos.",
       "incompleteImage": "/img/products/2-1.webp",
       "completeImage": "/img/products/2-2.webp",
       "options": [
@@ -60,7 +60,7 @@
           "id": 8,
           "text": "Medicada",
           "imageUrl": null,
-          "isCorrect": false
+          "isCorrect": true
         },
         {
           "id": 9,
@@ -76,9 +76,9 @@
         },
         {
           "id": 11,
-          "text": "20% oxido de zinc",
+          "text": "40% oxido de zinc",
           "imageUrl": null,
-          "isCorrect": true
+          "isCorrect": false
         },
         {
           "id": 12,
@@ -90,7 +90,7 @@
     },
     {
       "id": 3,
-      "question": "Completa el empaque, faltan 3 elementos.?",
+      "question": "Completa el empaque, faltan 3 elementos.",
       "incompleteImage": "/img/products/3-1.webp",
       "completeImage": "/img/products/3-2.webp",
       "options": [
@@ -134,7 +134,7 @@
     },
     {
       "id": 4,
-      "question": "Completa el empaque, faltan 3 elementos.?",
+      "question": "Completa el empaque, faltan 3 elementos.",
       "incompleteImage": "/img/products/4-1.webp",
       "completeImage": "/img/products/4-2.webp",
       "options": [

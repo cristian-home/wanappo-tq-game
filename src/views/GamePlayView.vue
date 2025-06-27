@@ -134,19 +134,11 @@ const handleOptionClick = (optionId: number) => {
 }
 
 onBeforeRouteLeave(async (to, from, next) => {
-  if (gameStore.isLevelCompleted) {
+  if (gameStore.isLevelCompleted || gameStore.isGameOver) {
     await startExitAnimation()
     next()
   } else {
-    const confirmed = confirm(
-      '¿Estás seguro de que quieres abandonar el nivel? Los cambios no se guardarán.',
-    )
-    if (confirmed) {
-      await startExitAnimation()
-      next()
-    } else {
-      next(false)
-    }
+    next(false)
   }
 })
 
@@ -169,21 +161,45 @@ watch(
   },
   { immediate: true },
 )
+
+// Watch for game over
+watch(
+  () => gameStore.isGameOver,
+  (newValue) => {
+    if (newValue) {
+      setTimeout(async () => {
+        router.push({ name: 'game-over' })
+      }, 1000)
+    }
+  },
+  { immediate: true },
+)
 </script>
 
 <template>
   <div class="relative flex h-dvh w-dvw flex-col items-center justify-center px-4 py-8">
     <div
       v-if="gameStore.currentLevel"
-      class="flex w-xl max-w-full flex-col items-center justify-center gap-10"
+      class="flex w-xl max-w-full flex-col items-center justify-center gap-6"
     >
       <motion.div
-        class="-mb-4 text-center text-xs opacity-75"
+        class="-mb-4 h-12 text-center text-xs opacity-75"
         :initial="{ opacity: 0, y: 20 }"
         :animate="{ opacity: 1, y: 0 }"
         :transition="{ duration: 0.3, delay: 0.2 }"
       >
         <span>Nivel {{ gameStore.currentLevelNumber }} de {{ gameStore.totalLevels }}</span>
+        <br />
+        <span class="text-orange-400">
+          Intentos restantes:
+          {{ gameStore.maxAttemptsForCurrentLevel - gameStore.currentLevelAttempts }}
+        </span>
+        <span
+          v-if="gameStore.currentLevelAttempts === gameStore.maxAttemptsForCurrentLevel - 1"
+          class="block animate-pulse font-bold text-red-500"
+        >
+          ¡Último intento!
+        </span>
       </motion.div>
 
       <motion.div
@@ -208,7 +224,7 @@ watch(
         </GameHeaderLabel>
       </motion.div>
 
-      <div class="h-32 w-96 max-w-full">
+      <div class="h-64 w-auto max-w-full">
         <AnimatePresence :mode="'wait'">
           <motion.img
             v-if="gameStore.currentLevel.incompleteImage"
