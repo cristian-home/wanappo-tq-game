@@ -10,8 +10,8 @@ const gameStore = useGameStore()
 const soundStore = useSoundStore()
 
 // motion refs
-const [title1Ref, animateTitle1] = useAnimate<HTMLHeadingElement>()
-const [title2Ref, animateTitle2] = useAnimate<HTMLHeadingElement>()
+const [faceRef, faceAnimate] = useAnimate<HTMLImageElement>()
+const [titleRef, titleAnimate] = useAnimate<HTMLHeadingElement>()
 const [buttonRef, animateButton] = useAnimate<HTMLDivElement>()
 
 const onClickBack = () => {
@@ -20,20 +20,20 @@ const onClickBack = () => {
 }
 
 const enterAnimateFace = async () => {
-  if (animateTitle1 === undefined) return
+  if (faceAnimate === undefined) return
 
-  await animateTitle1(
-    title1Ref.value,
+  await faceAnimate(
+    faceRef.value,
     { opacity: [0, 1], scale: [0.8, 1] },
     { duration: 0.5, ease: 'backInOut' },
   )
 }
 
 const enterAnimateLogo = async () => {
-  if (animateTitle2 === undefined) return
+  if (titleAnimate === undefined) return
 
-  await animateTitle2(
-    title2Ref.value,
+  await titleAnimate(
+    titleRef.value,
     { opacity: [0, 1], scale: [0.8, 1] },
     { delay: 0.3, duration: 0.5, ease: 'backInOut' },
   )
@@ -50,20 +50,20 @@ const enterAnimateButton = async () => {
 }
 
 const exitAnimateFace = async () => {
-  if (animateTitle1 === undefined) return
+  if (faceAnimate === undefined) return
 
-  await animateTitle1(
-    title1Ref.value,
+  await faceAnimate(
+    faceRef.value,
     { opacity: [1, 0], scale: [1, 0.8] },
     { duration: 0.3, ease: 'backInOut' },
   )
 }
 
 const exitAnimateLogo = async () => {
-  if (animateTitle2 === undefined) return
+  if (titleAnimate === undefined) return
 
-  await animateTitle2(
-    title2Ref.value,
+  await titleAnimate(
+    titleRef.value,
     { opacity: [1, 0], scale: [1, 0.8] },
     { duration: 0.3, ease: 'backInOut', delay: 0.1 },
   )
@@ -104,10 +104,18 @@ onBeforeRouteLeave(async (to, from, next) => {
 
 <template>
   <div class="flex h-screen flex-col items-center justify-center gap-12 p-8">
-    <h1 class="text-center text-4xl drop-shadow-lg drop-shadow-black/40" ref="title1Ref">
-      TERMINÓ EL JUEGO
-    </h1>
-    <h2 class="text-center text-3xl" ref="title2Ref">Mejor suerte para la próxima!</h2>
+    <img
+      src="@/assets/img/face-gameover.webp"
+      alt="Cara llorando"
+      class="h-64 object-contain drop-shadow-lg drop-shadow-black/40"
+      ref="faceRef"
+    />
+    <img
+      src="@/assets/img/text-gameover.webp"
+      alt="Logo de Wanappo TQ"
+      class="-mt-4 h-12 object-contain drop-shadow-lg drop-shadow-black/40"
+      ref="titleRef"
+    />
     <div class="flex w-full max-w-xs flex-col gap-4">
       <button class="btn btn-large btn-secondary" @click="onClickBack" ref="buttonRef">
         Volver al Inicio
