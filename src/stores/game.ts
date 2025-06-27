@@ -27,6 +27,9 @@ export const useGameStore = defineStore('game', () => {
   const currentLevelIndex = ref(0)
   const isGameCompleted = ref(false)
   const isLevelCompleted = ref(false)
+  const isGameOver = ref(false)
+  const isPlaying = ref(false)
+  const currentLevelAttempts = ref(0)
   const levels = ref<GameLevel[]>([])
 
   // Load game data from JSON
@@ -90,9 +93,21 @@ export const useGameStore = defineStore('game', () => {
     return allCorrectOptionsSelected.value && isLevelCompleted.value
   })
 
+  const maxAttemptsForCurrentLevel = computed(() => {
+    if (!currentLevel.value) return 0
+    const correctOptionsCount = currentLevel.value.options.filter(
+      (option) => option.isCorrect,
+    ).length
+    return correctOptionsCount
+  })
+
+  const hasExceededAttempts = computed(() => {
+    return currentLevelAttempts.value >= maxAttemptsForCurrentLevel.value
+  })
+
   // Actions
   const selectOption = (optionId: number) => {
-    if (!currentLevel.value || isLevelCompleted.value) return
+    if (!currentLevel.value || isLevelCompleted.value || hasExceededAttempts.value) return
 
     const option = currentLevel.value.options.find((opt) => opt.id === optionId)
     if (!option) return
@@ -116,6 +131,18 @@ export const useGameStore = defineStore('game', () => {
     // Select the current option
     option.isSelected = true
 
+    // If it's a wrong option, increment attempts
+    if (!option.isCorrect) {
+      currentLevelAttempts.value++
+
+      // Check if attempts exceeded
+      if (hasExceededAttempts.value) {
+        isGameOver.value = true
+        isPlaying.value = false
+        return
+      }
+    }
+
     // Check if level is completed
     checkLevelCompletion()
   }
@@ -132,6 +159,7 @@ export const useGameStore = defineStore('game', () => {
     if (currentLevelIndex.value < levels.value.length - 1) {
       currentLevelIndex.value++
       isLevelCompleted.value = false
+      currentLevelAttempts.value = 0 // Reset attempts for new level
     } else {
       completeGame()
     }
@@ -139,12 +167,16 @@ export const useGameStore = defineStore('game', () => {
 
   const completeGame = () => {
     isGameCompleted.value = true
+    isPlaying.value = false
   }
 
   const restartGame = () => {
     currentLevelIndex.value = 0
     isGameCompleted.value = false
     isLevelCompleted.value = false
+    isGameOver.value = false
+    isPlaying.value = true
+    currentLevelAttempts.value = 0
 
     // Reset all option selections
     levels.value.forEach((level) => {
@@ -161,12 +193,20 @@ export const useGameStore = defineStore('game', () => {
       option.isSelected = false
     })
     isLevelCompleted.value = false
+    currentLevelAttempts.value = 0
+  }
+
+  const startGame = () => {
+    isPlaying.value = true
+    isGameOver.value = false
+    isGameCompleted.value = false
   }
 
   const goToLevel = (levelIndex: number) => {
     if (levelIndex >= 0 && levelIndex < levels.value.length) {
       currentLevelIndex.value = levelIndex
       isLevelCompleted.value = false
+      currentLevelAttempts.value = 0
     }
   }
 
@@ -202,6 +242,9 @@ export const useGameStore = defineStore('game', () => {
     currentLevelIndex,
     isGameCompleted,
     isLevelCompleted,
+    isGameOver,
+    isPlaying,
+    currentLevelAttempts,
     levels,
 
     // Getters
@@ -215,6 +258,8 @@ export const useGameStore = defineStore('game', () => {
     correctOptionsLeft,
     allCorrectOptionsSelected,
     canProceedToNextLevel,
+    maxAttemptsForCurrentLevel,
+    hasExceededAttempts,
 
     // Actions
     loadGameData,
@@ -224,6 +269,7 @@ export const useGameStore = defineStore('game', () => {
     completeGame,
     restartGame,
     resetCurrentLevel,
+    startGame,
     goToLevel,
     getOptionById,
     isOptionSelected,
