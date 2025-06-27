@@ -10,8 +10,8 @@ const gameStore = useGameStore()
 const soundStore = useSoundStore()
 
 // motion refs
-const [title1Ref, animateTitle1] = useAnimate<HTMLH1Element>()
-const [title2Ref, animateTitle2] = useAnimate<HTMLH2Element>()
+const [title1Ref, animateTitle1] = useAnimate<HTMLHeadingElement>()
+const [title2Ref, animateTitle2] = useAnimate<HTMLHeadingElement>()
 const [buttonRef, animateButton] = useAnimate<HTMLDivElement>()
 
 const onClickBack = () => {
