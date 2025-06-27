@@ -98,7 +98,7 @@ export const useGameStore = defineStore('game', () => {
     const correctOptionsCount = currentLevel.value.options.filter(
       (option) => option.isCorrect,
     ).length
-    return correctOptionsCount
+    return correctOptionsCount + 1 // Allow one extra attempt
   })
 
   const hasExceededAttempts = computed(() => {
@@ -131,16 +131,14 @@ export const useGameStore = defineStore('game', () => {
     // Select the current option
     option.isSelected = true
 
-    // If it's a wrong option, increment attempts
-    if (!option.isCorrect) {
-      currentLevelAttempts.value++
+    // Increment attempts for any option selection (correct or incorrect)
+    currentLevelAttempts.value++
 
-      // Check if attempts exceeded
-      if (hasExceededAttempts.value) {
-        isGameOver.value = true
-        isPlaying.value = false
-        return
-      }
+    // Check if attempts exceeded
+    if (hasExceededAttempts.value) {
+      isGameOver.value = true
+      isPlaying.value = false
+      return
     }
 
     // Check if level is completed
