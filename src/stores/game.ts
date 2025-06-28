@@ -36,13 +36,16 @@ export const useGameStore = defineStore('game', () => {
   const loadGameData = async () => {
     try {
       // Transform the JSON data to include isSelected property
-      levels.value = questionsData.levels.map((level) => ({
+      const transformedLevels = questionsData.levels.map((level) => ({
         ...level,
         options: level.options.map((option) => ({
           ...option,
           isSelected: false,
         })),
       }))
+
+      // Shuffle the levels randomly
+      levels.value = [...transformedLevels].sort(() => Math.random() - 0.5)
     } catch (error) {
       console.error('Error loading game data:', error)
     }
@@ -134,15 +137,20 @@ export const useGameStore = defineStore('game', () => {
     // Increment attempts for any option selection (correct or incorrect)
     currentLevelAttempts.value++
 
-    // Check if attempts exceeded
+    // Check if level is completed first
+    checkLevelCompletion()
+
+    // If level is completed after this selection, don't end the game even if attempts exceeded
+    if (isLevelCompleted.value) {
+      return
+    }
+
+    // Check if attempts exceeded only if level is not completed
     if (hasExceededAttempts.value) {
       isGameOver.value = true
       isPlaying.value = false
       return
     }
-
-    // Check if level is completed
-    checkLevelCompletion()
   }
 
   const checkLevelCompletion = () => {
@@ -182,6 +190,9 @@ export const useGameStore = defineStore('game', () => {
         option.isSelected = false
       })
     })
+
+    // Shuffle the levels randomly for a new game experience
+    levels.value = [...levels.value].sort(() => Math.random() - 0.5)
   }
 
   const resetCurrentLevel = () => {

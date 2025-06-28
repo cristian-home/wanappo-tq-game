@@ -191,7 +191,7 @@ watch(
         <span>Nivel {{ gameStore.currentLevelNumber }} de {{ gameStore.totalLevels }}</span>
         <br />
         <span class="text-orange-400">
-          Intentos restantes:
+          Movimientos restantes:
           {{ gameStore.maxAttemptsForCurrentLevel - gameStore.currentLevelAttempts }}
         </span>
         <span
