@@ -23,9 +23,38 @@ export default defineConfig({
     }),
     VitePWA({
       registerType: 'autoUpdate',
+      injectRegister: 'script-defer',
       workbox: {
-        clientsClaim: true,
-        skipWaiting: true,
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,json,mp3}'],
+      },
+      manifest: {
+        name: 'TQ - Trivia Quiz Game',
+        short_name: 'TQ Game',
+        description: 'Pon a prueba tus conocimientos con el juego de trivia TQ.',
+        theme_color: 'oklch(0.3262 0.0818 268.58)',
+        icons: [
+          {
+            src: 'pwa-64x64.png',
+            sizes: '64x64',
+            type: 'image/png',
+          },
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+          {
+            src: 'maskable-icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+        ],
       },
     }),
   ],
